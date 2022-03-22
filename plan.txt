@@ -1,0 +1,25 @@
+create Model:
+1) Profile
+1.1)Forerkey(User)
+1.2)firstName
+1.3)secondName
+1.4)PhotoUser 
+1.5)DateBirthday
+1.6)Email
+
+2)Subscription
+2.1)subscriber = foreignKey(Profile)
+2.2)sub = foreignKey(Profile)
+
+3)blog
+3.1) ForeignKey(Profile)
+3.2) Photo
+3.3) Photoalt
+3.4) statusPublich
+3.5) dateCreate
+
+4)Comment
+4.1) ForeignKey(Content)
+4.2) UserComment = ForeignKey(User)
+4.3) Text
+4.4) date

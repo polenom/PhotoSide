@@ -1,0 +1,15 @@
+
+
+
+{% if messages %}
+    {% for message in messages  %}
+        {% if message.tags == 'error' %}
+            <p>Ошибка регистрации</p>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    {{ userReg.as_p }}
+    <input type="submit" value="Register">
+</form>
