@@ -10,8 +10,16 @@
 <body>
     {% if user.is_authenticated %}
         {{ user.get_username }}
+        <a href="{% url 'profile' us.slug %}">profile</a>
         <a href="{% url 'logout' %}">logout</a>
+        <p>sub: {{us.sub.count}}</p>
+        {% for blog in blogs %}
 
+            <p>
+                <img src="{{blog.photo.url}}" alt="фото" srcset="" width="300" height="300">
+            </p>
+            <a href="{% url 'blog' blog.slug %}">link</a>
+        {% endfor %}
     {% else %}
          <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
@@ -19,12 +27,15 @@
             <input type="submit" value="login">
         </form>
         <a href="{% url 'register' %}">register</a>
+        {% for blog in blogs %}
+            <p>
+                <img src="{{blog.photo.url}}" alt="фото" srcset="" width="300" height="300">
+            </p>
+
+        {% endfor %}
+
     {% endif %}
-    <p>2222222222222222</p>
-    {% for task in tasks%}
-    <img src="{{task.photo.url}}" alt="фото" srcset="">
-        {{task.photo.url}}
-    {% endfor %}
-    <img src="{% static 'images/2022/3/22/date_8-26-26' %}" alt="My image">
+
+
 </body>
 </html>
