@@ -1,4 +1,4 @@
-    {% if user.is_authenticated %}
+
         {{ user.get_username }}
         {% if user.profile.userPhoto %}
             <img src="{{user.profile.userPhoto}}" alt="" width="50" height="50">
@@ -17,4 +17,3 @@
                 </p>
             link</a>
         {% endfor %}
-    {% endif %}

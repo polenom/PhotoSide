@@ -83,8 +83,11 @@ def viewBlog(request, slug):
     if request.user.is_authenticated and request.user.id == reqid:
         blog = User.objects.get(pk = request.user.id).blogs.get(slug=slug)
         return render(request,'blog.html', {'blog':blog,'username':User.objects.get(pk = request.user.id).username})
-    else:
+    elif request.user.is_authenticated:
         blog =Blog.objects.get(slug=slug)
+        # if request.method == "POST":
+        #     suber = Profile.objects.get(user=request.user.id)
+        #     suber =
         return render(request, 'blog.html', {'blog': blog,'username':blog.user.username})
     return HttpResponse('Ok')
 
@@ -104,10 +107,17 @@ def viewProfile(request, slug):
     return  HttpResponse('dont auth')
 
 
-def viewBlogs(request):
-    if request.user.is_authenticated:
+def viewBlogs(request, slug):
+    reqid = User.objects.get(username=slug).pk
+    print(reqid,111111111111111111111111111111111)
+    if request.user.is_authenticated and request.user.id == reqid:
         user = User.objects.get(username=request.user)
         us = user.profile
         blogs = user.blogs.all().order_by('-creation')
         return render(request, 'myblogs.html', {'us': us, 'blogs':blogs})
+    elif request.user.is_authenticated:
+        user = User.objects.get(username=request.user)
+        us = user.profile
+        blogs = Blog.objects.filter(Q(photoPublish=True)&Q(user=reqid)).order_by('-creation')
+        return render(request, 'myblogs.html', {'us': us, 'blogs': blogs})
     return HttpResponse('ошибка 404')

@@ -15,7 +15,7 @@
         {% else %}
             <img src="https://scontent.frix7-1.fna.fbcdn.net/v/t31.18172-8/965425_128973217302546_416782933_o.png?_nc_cat=106&ccb=1-5&_nc_sid=e3f864&_nc_ohc=ByzXP3RoKj4AX_6kAZC&_nc_ht=scontent.frix7-1.fna&oh=00_AT9G3B-5Kdb75QCYbYahcjwpdvda9Y3AoIXBHCgnNn7yTA&oe=6269A10A" alt="" width="50" height="50">
         {% endif %}
-        <a href="{% url 'blogs'%}"> blogs </a>
+        <a href="{% url 'blogs' user.get_username  %}"> blogs </a>
         <a href="{% url 'add'%}"> add photo</a>
         <a href="{% url 'profile' us.slug %}">profile</a>
         <a href="{% url 'logout' %}">logout</a>
