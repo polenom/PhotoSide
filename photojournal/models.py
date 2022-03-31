@@ -4,11 +4,12 @@ from datetime import datetime
 from django.urls import reverse
 
 def user_path(instance, filename):
-    return f'photojournal/Profile/Photo/%Y/%m/%d/username_{instance.userProfile}_id_{instance.userProfile.id}_{datetime.now()}.jpg'
+    date = datetime.now()
+    return f'static/Photo/{date.year}/{date.month}/{date.day}/username_{instance.userProfile}_id_{instance.userProfile.id}_{datetime.now()}.{filename.split(".")[1]}'
 
 def photo_path(instance, filename):
     date = datetime.now()
-    return f'static/images/{date.year}/{date.month}/{date.day}/date_{date.hour}-{date.minute}-{date.minute}'
+    return f'static/images/{date.year}/{date.month}/{date.day}/date_{date.hour}-{date.minute}-{date.minute}.{filename.split(".")[1]}'
 
 class Profile(models.Model):
     userProfile = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='',related_name='profile',primary_key=True)

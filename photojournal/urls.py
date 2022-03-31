@@ -10,7 +10,8 @@ urlpatterns = [
     path('logout', logoutUser, name='logout'),
     path('add', addPhoto, name='add'),
     path('blog/<slug:slug>', viewBlog, name= 'blog'),
-    path('profile/<slug:slug>', viewProfile, name='profile')
+    path('profile/<slug:slug>', viewProfile, name='profile'),
+    path('blogs/', viewBlogs, name='blogs')
 ]
 
 

@@ -16,7 +16,7 @@ def basePage(request):
         print(request.user)
         user = User.objects.get(username = request.user)
         us = user.profile
-        blogs = user.blogs.all()
+        blogs = Blog.objects.filter(Q(photoPublish=True)& ~Q(user=request.user.id)).order_by('-creation')
         param = {'blogs': blogs,
                  'form': form,
                  'us': us}
@@ -70,6 +70,7 @@ def addPhoto(request):
             if form.is_valid():
                 venue = form.save(commit=False)
                 venue.user_id = request.user.id
+                venue.slug = request.POST['title']
                 venue.save()
                 return redirect('/')
         else:
@@ -78,21 +79,22 @@ def addPhoto(request):
 
 
 def viewBlog(request, slug):
-    if request.user.is_authenticated:
+    reqid = Blog.objects.get(slug=slug).user
+    if request.user.is_authenticated and request.user.id == reqid:
         blog = User.objects.get(pk = request.user.id).blogs.get(slug=slug)
-        return render(request,'blog.html', {'blog':blog})
+        return render(request,'blog.html', {'blog':blog,'username':User.objects.get(pk = request.user.id).username})
+    else:
+        blog =Blog.objects.get(slug=slug)
+        return render(request, 'blog.html', {'blog': blog,'username':blog.user.username})
     return HttpResponse('Ok')
 
 
 def viewProfile(request, slug):
     if request.method == 'POST' and request.user.is_authenticated:
-        form = ProfileForm(request.POST)
+        user = User.objects.get(pk = request.user.id).profile
+        form = ProfileForm(request.POST,request.FILES,instance=user)
         if form.is_valid():
-            changeForm = form.save(commit=False)
-            changeForm.userProfile_id = request.user.id
-            changeForm.slug = request.user.username
-            print(request.user.username, 33333333333333333333333333333333333333333)
-            changeForm.save()
+            form.save()
             return redirect('/')
     if request.user.is_authenticated:
         profil =  User.objects.get(pk = request.user.id).profile
@@ -100,3 +102,12 @@ def viewProfile(request, slug):
         return render(request, 'profile.html', {'form': form})
 
     return  HttpResponse('dont auth')
+
+
+def viewBlogs(request):
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user)
+        us = user.profile
+        blogs = user.blogs.all().order_by('-creation')
+        return render(request, 'myblogs.html', {'us': us, 'blogs':blogs})
+    return HttpResponse('ошибка 404')
