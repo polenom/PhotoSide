@@ -19,7 +19,7 @@
         <a href="{% url 'add'%}"> add photo</a>
         <a href="{% url 'profile' us.slug %}">profile</a>
         <a href="{% url 'logout' %}">logout</a>
-        <p>sub: {{us.sub.count}}</p>
+        
         {% for blog in blogs %}
 
             <p>

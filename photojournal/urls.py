@@ -11,7 +11,8 @@ urlpatterns = [
     path('add', addPhoto, name='add'),
     path('blog/<slug:slug>', viewBlog, name= 'blog'),
     path('profile/<slug:slug>', viewProfile, name='profile'),
-    path('blogs/<slug:slug>', viewBlogs, name='blogs')
+    path('blogs/<slug:slug>', viewBlogs, name='blogs'),
+    path('sub/<int:pk>', subUser, name='subuser')
 ]
 
 

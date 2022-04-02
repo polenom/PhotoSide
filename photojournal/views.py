@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView
 from django.contrib import messages
 from .forms import UserRegisterForm, UserAuthForm, AddPhotoForm, ProfileForm
 from .models import *
-from django.db.models import Q
+from django.db.models import Q, Count
 
 
 def basePage(request):
@@ -114,10 +114,32 @@ def viewBlogs(request, slug):
         user = User.objects.get(username=request.user)
         us = user.profile
         blogs = user.blogs.all().order_by('-creation')
-        return render(request, 'myblogs.html', {'us': us, 'blogs':blogs})
-    elif request.user.is_authenticated:
-        user = User.objects.get(username=request.user)
-        us = user.profile
+        subcount = Profile.objects.exclude(pk = request.user.id).filter(sub=request.user.id).aggregate(Count('sub'))['sub__count']
+        return render(request, 'myblogs.html', {'us': us, 'blogs':blogs,'subcount':subcount})
+    elif request.user.is_authenticated and request.user.id != reqid:
+        us = User.objects.get(pk=reqid)
         blogs = Blog.objects.filter(Q(photoPublish=True)&Q(user=reqid)).order_by('-creation')
-        return render(request, 'myblogs.html', {'us': us, 'blogs': blogs})
+        subcount = Profile.objects.exclude(pk=reqid).filter(sub=reqid).aggregate(Count('sub'))['sub__count']
+        sub = False
+        if Profile.objects.get(pk=request.user.id).sub.filter(pk=reqid):
+            sub=True
+        return render(request, 'blogsotheruser.html', {'us': us, 'blogs': blogs, 'sub':sub,'subcount': subcount})
     return HttpResponse('ошибка 404')
+
+
+def subUser(request, pk):
+    try:
+        user=User.objects.get(pk=pk)
+        suber = User.objects.get(pk=request.user.id)
+    except User.DoesNotExist:
+        user = False
+
+    if user and suber:
+        print(suber.username)
+        check = suber.profile.sub.filter(pk = pk)
+
+        if check:
+            suber.profile.sub.remove(user)
+        else:
+            suber.profile.sub.add(user)
+    return redirect(f'/blogs/{user.profile.slug}')
