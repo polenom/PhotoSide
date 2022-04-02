@@ -2,10 +2,25 @@
     <p>{{ username }}</p>
 </a>
 
-<img src="{{blog.photo.url}}" alt="">
+<img src="{{blog.photo.url}}" alt="" width="200" height="200">
 <p>{{blog.title}}</p>
 <p>{{blog.description}}</p>
-<a href="/">
+<p>{{blog.likesBlog.count}} <a href="{% url 'like' blog.slug %}">
+    add like
+</a></p>
+
+<p><a href="/">
 <button > return </button>
 </a>
+</p>
 
+{% for cmnt in comments %}
+    <h5> {{ cmnt.user.username}}</h5>
+    <p> {{cmnt.text}}</p>
+    <p> {{cmnt.creation }}</p>
+{% endfor %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit"> add comment</button>
+</form>

@@ -36,7 +36,7 @@ class Blog(models.Model):
     description = models.TextField(max_length=100, verbose_name='Описание')
     creation = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     photoPublish = models.BooleanField(default=True, verbose_name='Статус')
-    likesBlog = models.ManyToManyField(User, blank=True)
+    likesBlog = models.ManyToManyField(User,blank=True, related_name='likes')
     title = models.CharField(max_length=40, unique=True)
     slug = models.SlugField(null=True)
 
@@ -48,7 +48,7 @@ class Blog(models.Model):
 
 class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Имя пользователя')
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name='Фото')
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name='Фото', related_name='coms')
     text = models.TextField(max_length=100, verbose_name='Коментарий')
     creation = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
 

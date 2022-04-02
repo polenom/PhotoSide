@@ -5,7 +5,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 from django.contrib import messages
-from .forms import UserRegisterForm, UserAuthForm, AddPhotoForm, ProfileForm
+from .forms import UserRegisterForm, UserAuthForm, AddPhotoForm, ProfileForm, CommentsForm
 from .models import *
 from django.db.models import Q, Count
 
@@ -80,15 +80,33 @@ def addPhoto(request):
 
 def viewBlog(request, slug):
     reqid = Blog.objects.get(slug=slug).user
+    form = CommentsForm()
     if request.user.is_authenticated and request.user.id == reqid:
         blog = User.objects.get(pk = request.user.id).blogs.get(slug=slug)
+        if request.method == 'POST':
+            form = CommentsForm(request.POST)
+            if form.is_valid():
+                value = form.save(commit=False)
+                value.user = User.objects.get(pk =request.user.id)
+                value.blog = blog
+                value.save()
+                form = CommentsForm()
         return render(request,'blog.html', {'blog':blog,'username':User.objects.get(pk = request.user.id).username})
     elif request.user.is_authenticated:
         blog =Blog.objects.get(slug=slug)
+        comments = blog.coms.all().order_by('-creation')
+        if request.method == 'POST':
+            form = CommentsForm(request.POST)
+            if form.is_valid():
+                value = form.save(commit=False)
+                value.user = User.objects.get(pk =request.user.id)
+                value.blog = blog
+                value.save()
+                form = CommentsForm()
         # if request.method == "POST":
         #     suber = Profile.objects.get(user=request.user.id)
         #     suber =
-        return render(request, 'blog.html', {'blog': blog,'username':blog.user.username})
+        return render(request, 'blog.html', {'blog': blog,'username':blog.user.username, 'comments': comments,'form':form})
     return HttpResponse('Ok')
 
 
@@ -143,3 +161,19 @@ def subUser(request, pk):
         else:
             suber.profile.sub.add(user)
     return redirect(f'/blogs/{user.profile.slug}')
+
+
+def likeBlog(request, slug):
+    try:
+        blog  = Blog.objects.get(slug=slug)
+        like = User.objects.get(pk = request.user.id)
+    except User.DoesNotExist or Blog.DoesNotExist:
+        like = False
+    if blog and like:
+        check = blog.likesBlog.filter(pk=request.user.id)
+        if check:
+            blog.likesBlog.remove(like)
+        else:
+            blog.likesBlog.add(like)
+    return redirect(f'/blog/{slug}')
+

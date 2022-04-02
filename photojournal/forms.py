@@ -34,3 +34,10 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('userPhoto', 'firstName', 'secondName', 'dateBirthday', 'emailProfile')
 
+
+class CommentsForm(forms.ModelForm):
+
+    class Meta:
+        model = Comments
+        fields = ('text',)
+
