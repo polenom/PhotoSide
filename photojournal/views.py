@@ -81,8 +81,9 @@ def addPhoto(request):
 def viewBlog(request, slug):
     reqid = Blog.objects.get(slug=slug).user
     form = CommentsForm()
-    if request.user.is_authenticated and request.user.id == reqid:
+    if request.user.is_authenticated and request.user == reqid:
         blog = User.objects.get(pk = request.user.id).blogs.get(slug=slug)
+        comments = blog.coms.all().order_by('-creation')
         if request.method == 'POST':
             form = CommentsForm(request.POST)
             if form.is_valid():
@@ -91,7 +92,7 @@ def viewBlog(request, slug):
                 value.blog = blog
                 value.save()
                 form = CommentsForm()
-        return render(request,'blog.html', {'blog':blog,'username':User.objects.get(pk = request.user.id).username})
+        return render(request,'blog.html', {'blog':blog,'username':User.objects.get(pk = request.user.id).username, 'comments': comments,'form':form, 'delete': True })
     elif request.user.is_authenticated:
         blog =Blog.objects.get(slug=slug)
         comments = blog.coms.all().order_by('-creation')
@@ -106,7 +107,7 @@ def viewBlog(request, slug):
         # if request.method == "POST":
         #     suber = Profile.objects.get(user=request.user.id)
         #     suber =
-        return render(request, 'blog.html', {'blog': blog,'username':blog.user.username, 'comments': comments,'form':form})
+        return render(request, 'blog.html', {'blog': blog,'username':blog.user.username, 'comments': comments,'form':form, 'delete': False})
     return HttpResponse('Ok')
 
 
@@ -177,3 +178,11 @@ def likeBlog(request, slug):
             blog.likesBlog.add(like)
     return redirect(f'/blog/{slug}')
 
+def removeBlog(request, slug):
+    try:
+        blog = Blog.objects.get(slug=slug)
+    except Blog.DoesNotExist:
+        return HttpResponse('404')
+    if request.user.is_authenticated and blog.user == request.user:
+        blog.delete()
+    return redirect('/')

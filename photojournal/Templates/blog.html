@@ -8,7 +8,14 @@
 <p>{{blog.likesBlog.count}} <a href="{% url 'like' blog.slug %}">
     add like
 </a></p>
-
+{{delete}}
+{% if delete %}
+    <button type="submit">
+        <a href="{% url 'remove' blog.slug %}">
+        remove blog
+        </a>
+    </button>
+{% endif %}
 <p><a href="/">
 <button > return </button>
 </a>
