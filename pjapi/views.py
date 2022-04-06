@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, mixins
 from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
+
 from photojournal.models import Blog
 
 from photojournal.models import *
@@ -10,18 +12,34 @@ from photojournal.models import *
 from pjapi.serializer import BlogsSerializer  # , BlogUpdateSerializer
 
 
-class BlogsAPIList(ListCreateAPIView):
+class BlogViewSet(mixins.CreateModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.ListModelMixin,
+                   mixins.DestroyModelMixin,
+                   GenericViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogsSerializer
 
 
-class BlogsAPIUpdate(UpdateAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogsSerializer
 
-class BlogAPIDel(DestroyAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogsSerializer
+
+
+
+
+
+# class BlogsAPIList(ListCreateAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogsSerializer
+#
+#
+# class BlogsAPIUpdate(UpdateAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogsSerializer
+#
+# class BlogAPIDel(DestroyAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogsSerializer
 
 
 # class BlogsAPIView(APIView):
