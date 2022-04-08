@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, mixins
+from rest_framework.decorators import action
 from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -18,11 +19,26 @@ class BlogViewSet(mixins.CreateModelMixin,
                    mixins.ListModelMixin,
                    mixins.DestroyModelMixin,
                    GenericViewSet):
-    queryset = Blog.objects.all()
+    # queryset = Blog.objects.all()
     serializer_class = BlogsSerializer
 
+    def get_queryset(self):
+        pk = self.kwargs.get("pk", None)
+        if pk:
+            return Blog.objects.filter(pk=pk)
+        return Blog.objects.all()
 
+    @action(methods=['get'], detail=False)
+    def users(self,request):
+        user= Profile.objects.all()
+        return Response({'users':[ {i.userProfile.username : i.pk} for i in user]})
 
+    @action(methods=['get'], detail=True)
+    def user(self, request, pk=None):
+        print(pk, "My Pk" )
+        us = Profile.objects.get(pk = pk)
+        a = us.__dict__
+        return Response({'user':  {f'{k}':f'{v}' for k,v in us.__dict__.items() if '_s' not in k } })
 
 
 
