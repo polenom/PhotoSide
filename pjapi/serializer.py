@@ -2,11 +2,19 @@ from rest_framework import serializers
 from photojournal.models import *
 
 class BlogsSerializer(serializers.ModelSerializer):
+    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Blog
         fields = '__all__'
+        read_only_fields = ['likesBlog','user']
 #     def create(self, validated_data):
 #         return Blog.objects.create(**validated_data)
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
 #
 #
 # class BlogUpdateSerializer(serializers.Serializer):

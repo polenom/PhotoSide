@@ -1,16 +1,21 @@
+import json
+
+from django.forms import model_to_dict
 from django.shortcuts import render
 from rest_framework import generics, mixins
 from rest_framework.decorators import action
 from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
-
+from rest_framework import serializers
 from photojournal.models import Blog
 
 from photojournal.models import *
 # Create your views here.
-from pjapi.serializer import BlogsSerializer  # , BlogUpdateSerializer
+from pjapi.permissions import AdmFullIsAuthOrReadOnly
+from pjapi.serializer import BlogsSerializer, ProfileSerializer  # , BlogUpdateSerializer
 
 
 class BlogViewSet(mixins.CreateModelMixin,
@@ -21,6 +26,7 @@ class BlogViewSet(mixins.CreateModelMixin,
                    GenericViewSet):
     # queryset = Blog.objects.all()
     serializer_class = BlogsSerializer
+    permission_classes = (AdmFullIsAuthOrReadOnly,)
 
     def get_queryset(self):
         pk = self.kwargs.get("pk", None)
@@ -36,9 +42,10 @@ class BlogViewSet(mixins.CreateModelMixin,
     @action(methods=['get'], detail=True)
     def user(self, request, pk=None):
         print(pk, "My Pk" )
-        us = Profile.objects.get(pk = pk)
-        a = us.__dict__
-        return Response({'user':  {f'{k}':f'{v}' for k,v in us.__dict__.items() if '_s' not in k } })
+        us = Profile.objects.get(pk=pk)
+        u = ProfileSerializer(us, many=False)
+        print(u.data, 'sedd')
+        return Response({'data': u.data})
 
 
 
