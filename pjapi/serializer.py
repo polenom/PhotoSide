@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from photojournal.models import *
+from rest_framework.authtoken.models import Token
 
 class BlogsSerializer(serializers.ModelSerializer):
     # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -15,6 +16,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
+
+
 #
 #
 # class BlogUpdateSerializer(serializers.Serializer):

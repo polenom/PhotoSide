@@ -3,6 +3,7 @@ import json
 from django.forms import model_to_dict
 from django.shortcuts import render
 from rest_framework import generics, mixins
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -47,8 +48,24 @@ class BlogViewSet(mixins.CreateModelMixin,
         print(u.data, 'sedd')
         return Response({'data': u.data})
 
+class GetToken(APIView):
+    def get(self, request):
+        if request.user.is_authenticated:
+            if not Token.objects.filter(user_id=request.user.id):
+                token = Token.objects.create(user=request.user)
+            else:
+                token = Token.objects.get(user=request.user)
+            return  Response({'Token': token.key})
+        return Response({'Token':'user is not authenticated '})
 
-
+    def delete(self, request):
+        if request.user.is_authenticated:
+            token = Token.objects.filter(user_id=request.user.id)
+            if  Token.objects.filter(user_id=request.user.id):
+                token[0].delete()
+                return Response({'delete':'True'})
+            return Response({'delete':'False'})
+        return Response({'error':'user is not authenticated '})
 
 
 # class BlogsAPIList(ListCreateAPIView):
