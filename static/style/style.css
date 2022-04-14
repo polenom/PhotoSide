@@ -111,6 +111,22 @@ footer {
     height: 300px;
 }
 
+.col2  {
+    text-align: start;
+}
+
+.col2 h5 {
+    margin-left: 20px;
+    font-size: 20px;
+
+}
+
+.col2 form {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
 @media screen and (max-width: 1400px) {
     .elem {
       width: 40%;

@@ -1,19 +1,76 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photojournal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style/style.css">
 
-        {{ user.get_username }}
-        {% if user.profile.userPhoto %}
-            <img src="/{{user.profile.userPhoto}}" alt="" width="50" height="50">
-        {% else %}
-            <img src="https://scontent.frix7-1.fna.fbcdn.net/v/t31.18172-8/965425_128973217302546_416782933_o.png?_nc_cat=106&ccb=1-5&_nc_sid=e3f864&_nc_ohc=ByzXP3RoKj4AX_6kAZC&_nc_ht=scontent.frix7-1.fna&oh=00_AT9G3B-5Kdb75QCYbYahcjwpdvda9Y3AoIXBHCgnNn7yTA&oe=6269A10A" alt="" width="50" height="50">
-        {% endif %}
-        <a href="/">Home</a>
-        <a href="{% url 'add'%}"> add photo</a>
-        <a href="{% url 'profile' us.slug %}">profile</a>
-        <a href="{% url 'logout' %}">logout</a>
-        <p>sub: {{subcount}}</p>
-        {% for blog in blogs %}
-            <a href="{% url 'blog' blog.slug %}">
-                <p>
-                    <img src="{{blog.photo.url}}" alt="фото" srcset="" width="300" height="300">
-                </p>
-            link</a>
-        {% endfor %}
+</head>
+<body>
+        <nav>
+            <div class="navbar">
+                <ul>
+                    <li>
+                        <h3>PhotoJournal</h3>
+                    </li>
+                    <li>
+                        {% if user.profile.userPhoto %}
+                            <img src="/{{user.profile.userPhoto}}" alt="" width="50" height="50">
+                        {% else %}
+                            <img src="https://scontent.frix7-1.fna.fbcdn.net/v/t31.18172-8/965425_128973217302546_416782933_o.png?_nc_cat=106&ccb=1-5&_nc_sid=e3f864&_nc_ohc=ByzXP3RoKj4AX_6kAZC&_nc_ht=scontent.frix7-1.fna&oh=00_AT9G3B-5Kdb75QCYbYahcjwpdvda9Y3AoIXBHCgnNn7yTA&oe=6269A10A" alt="" width="50" height="50">
+                        {% endif %}
+                        {{ user.get_username }} /
+                         sub: {{subcount}}
+                    </li>
+                    <li>
+                        <p>
+                            <a href="/"> Blogs </a>
+                        </p>
+
+                    </li>
+                    <li>
+                        <p>
+                            <a href="{% url 'add'%}"> add photo</a>
+                        </p>
+
+                    </li>
+                    <li>
+                        <p>
+                            <a href="{% url 'profile' us.slug %}">profile</a>
+                        </p>
+
+                    </li>
+                    <li>
+                        <p>
+                            <a href="{% url 'logout' %}">logout</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <footer>
+            <div class="foo">
+                {% for blog in blogs %}
+                    <div class="elem">
+                        <a href="{% url 'blog' blog.slug %}">
+                            <p>
+                                <img src="{{blog.photo.url}}" alt="фото" >
+                            </p>
+                        </a>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </footer>
+
+</body>
+</html>
+

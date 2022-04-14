@@ -84,6 +84,8 @@ def viewBlog(request, slug):
     if request.user.is_authenticated and request.user == reqid:
         blog = User.objects.get(pk = request.user.id).blogs.get(slug=slug)
         comments = blog.coms.all().order_by('-creation')
+        user = User.objects.get(username=request.user)
+        us = user.profile
         if request.method == 'POST':
             form = CommentsForm(request.POST)
             if form.is_valid():
@@ -92,10 +94,12 @@ def viewBlog(request, slug):
                 value.blog = blog
                 value.save()
                 form = CommentsForm()
-        return render(request,'blog.html', {'blog':blog,'username':User.objects.get(pk = request.user.id).username, 'comments': comments,'form':form, 'delete': True })
+        return render(request,'blog.html', {'blog':blog,'username':User.objects.get(pk = request.user.id).username, 'comments': comments,'form':form, 'delete': True , 'us': us})
     elif request.user.is_authenticated:
         blog =Blog.objects.get(slug=slug)
         comments = blog.coms.all().order_by('-creation')
+        user = User.objects.get(username=request.user)
+        us = user.profile
         if request.method == 'POST':
             form = CommentsForm(request.POST)
             if form.is_valid():
@@ -107,7 +111,7 @@ def viewBlog(request, slug):
         # if request.method == "POST":
         #     suber = Profile.objects.get(user=request.user.id)
         #     suber =
-        return render(request, 'blog.html', {'blog': blog,'username':blog.user.username, 'comments': comments,'form':form, 'delete': False})
+        return render(request, 'blog.html', {'blog': blog,'username':blog.user.username, 'comments': comments,'form':form, 'delete': False, 'us':us})
     return HttpResponse('Ok')
 
 

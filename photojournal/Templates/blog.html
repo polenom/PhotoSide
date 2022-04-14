@@ -1,33 +1,138 @@
-<a href="{% url 'blogs' username %}">
-    <p>{{ username }}</p>
-</a>
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photojournal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style/style.css">
 
-<img src="{{blog.photo.url}}" alt="" width="200" height="200">
-<p>{{blog.title}}</p>
-<p>{{blog.description}}</p>
-<p>{{blog.likesBlog.count}} <a href="{% url 'like' blog.slug %}">
-    add like
-</a></p>
-{{delete}}
-{% if delete %}
-    <button type="submit">
-        <a href="{% url 'remove' blog.slug %}">
-        remove blog
-        </a>
-    </button>
-{% endif %}
-<p><a href="/">
-<button > return </button>
-</a>
-</p>
+</head>
+<body>
+        <nav>
+            <div class="navbar">
+                <ul>
+                    <li>
+                        <h3>PhotoJournal</h3>
+                    </li>
+                    <li>
+                        {% if user.profile.userPhoto %}
+                            <img src="/{{user.profile.userPhoto}}" alt="" width="50" height="50">
+                        {% else %}
+                            <img src="https://scontent.frix7-1.fna.fbcdn.net/v/t31.18172-8/965425_128973217302546_416782933_o.png?_nc_cat=106&ccb=1-5&_nc_sid=e3f864&_nc_ohc=ByzXP3RoKj4AX_6kAZC&_nc_ht=scontent.frix7-1.fna&oh=00_AT9G3B-5Kdb75QCYbYahcjwpdvda9Y3AoIXBHCgnNn7yTA&oe=6269A10A" alt="" width="50" height="50">
+                        {% endif %}
+                        {{ user.get_username }}
+                    </li>
+                    <li>
+                        <p>
+                            <a href="/"> Blogs </a>
+                        </p>
 
-{% for cmnt in comments %}
-    <h5> {{ cmnt.user.username}}</h5>
-    <p> {{cmnt.text}}</p>
-    <p> {{cmnt.creation }}</p>
-{% endfor %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit"> add comment</button>
-</form>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="{% url 'add'%}"> add photo</a>
+                        </p>
+
+                    </li>
+                    <li>
+                        <p>
+                            <a href="{% url 'profile' us.slug %}">profile</a>
+                        </p>
+
+                    </li>
+                    <li>
+                        <p>
+                            <a href="{% url 'logout' %}">logout</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <footer>
+            <div class="foo">
+                 <footer>
+            <div class="foo">
+                <div class="col1">
+
+                    <img src="{{blog.photo.url}}" alt="" width="500" height="500">
+                    <a href="{% url 'blogs' username %}">{{username}}</a>
+                    <p>Title: {{blog.title}}</p>
+                    <p>description : {{blog.description}}</p>
+                    <p>likes: {{blog.likesBlog.count}} </p>
+                    {% if not delete%}
+                        <a href="{% url 'like' blog.slug %}">
+                            add like
+                        </a>
+                    {% endif%}
+                    {% if delete%}
+                        <button type="submit">
+                            <a href="{% url 'remove' blog.slug %}">
+                            remove blog
+                            </a>
+                        </button>
+                    {% endif %}
+                </div>
+                <div class="col2">
+                    {% for cmnt in comments %}
+                        <h5> {{ cmnt.user.username}}</h5>
+                        <p> {{cmnt.text}}</p>
+                        <p> {{cmnt.creation }}</p>
+                    {% endfor %}
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit"> add comment</button>
+                    </form>
+
+
+                </div>
+
+            </div>
+        </footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!--<img src="{{blog.photo.url}}" alt="" width="200" height="200">-->
+<!--<p>{{blog.title}}</p>-->
+<!--<p>{{blog.description}}</p>-->
+<!--<p>{{blog.likesBlog.count}} <a href="{% url 'like' blog.slug %}">-->
+<!--    add like-->
+<!--</a></p>-->
+<!--{{delete}}-->
+<!--{% if delete %}-->
+<!--    <button type="submit">-->
+<!--        <a href="{% url 'remove' blog.slug %}">-->
+<!--        remove blog-->
+<!--        </a>-->
+<!--    </button>-->
+<!--{% endif %}-->
+<!--<p><a href="/">-->
+<!--<button > return </button>-->
+<!--</a>-->
+<!--</p>-->
+
+<!--{% for cmnt in comments %}-->
+<!--    <h5> {{ cmnt.user.username}}</h5>-->
+<!--    <p> {{cmnt.text}}</p>-->
+<!--    <p> {{cmnt.creation }}</p>-->
+<!--{% endfor %}-->
+<!--<form action="" method="post">-->
+<!--    {% csrf_token %}-->
+<!--    {{form.as_p}}-->
+<!--    <button type="submit"> add comment</button>-->
+<!--</form>-->
