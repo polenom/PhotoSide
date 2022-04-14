@@ -72,27 +72,27 @@
             </div>
         </footer>
         {% else %}
-            <form action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-                {{form.as_p}}
-                <input type="submit" value="login">
-            </form>
-            <a href="{% url 'register' %}">register</a>
-            {% for blog in blogs %}
-                <footer>
+            <nav>
+                <div class="navbar">
+                    <form action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="submit" value="login" class="login">
+                    </form>
+                    <a href="{% url 'register' %}" class="reg">register</a>
+                </div>
+            </nav>
+            <footer>
                 <div class="foo">
                     {% for blog in blogs %}
                         <div class="elem">
-                                <p>
-                                    <img src="{{blog.photo.url}}" alt="фото" >
-                                </p>
+                            <p>
+                                <img src="{{blog.photo.url}}" alt="фото" >
+                            </p>
                         </div>
                     {% endfor %}
-
                 </div>
             </footer>
-
-        {% endfor %}
 
     {% endif %}
 </body>

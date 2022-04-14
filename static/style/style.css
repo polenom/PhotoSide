@@ -53,6 +53,32 @@ body {
     color: rgb(43, 58, 58);
 }
 
+.navbar form {
+    display: flex;
+    justify-content: space-around;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.navbar .login {
+    width: 220px;
+    height: 22px;
+    margin-top: 35px;
+    margin-left: 20px;
+}
+
+.navbar .reg {
+    font-size: 20px;
+}
+
+.reg:hover {
+    text-decoration:solid;
+    color: black;
+    border-radius: 5px;
+    background-color: rgb(243, 242, 242);
+
+}
+
 .navbar li:not(:first-child):hover {
     text-decoration:solid;
     color: black;
@@ -71,7 +97,7 @@ footer {
 }
 .foo {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-top: 100px;
     flex-wrap: wrap;
     background-color: rgba(var(--b3f,250,250,250),1);
@@ -83,4 +109,17 @@ footer {
     box-shadow: 0px 0px 2px 5px rgba(189, 194, 194, 0.719);
     width: 300px;
     height: 300px;
+}
+
+@media screen and (max-width: 1400px) {
+    .elem {
+      width: 40%;
+    }
+}
+
+
+@media screen and (max-width: 950px) {
+    .elem {
+      width: 80%;
+    }
 }
