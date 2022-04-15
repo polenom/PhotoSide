@@ -122,10 +122,12 @@ def viewProfile(request, slug):
         if form.is_valid():
             form.save()
             return redirect('/')
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.username == slug :
         profil =  User.objects.get(pk = request.user.id).profile
         form = ProfileForm(instance=profil)
-        return render(request, 'profile.html', {'form': form})
+        subers = User.objects.get(pk=request.user.pk).profile.sub.all()
+        print(subers, 'subers')
+        return render(request, 'profile.html', {'form': form, 'subers': subers})
 
     return  HttpResponse('dont auth')
 

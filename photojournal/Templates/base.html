@@ -19,7 +19,7 @@
             <div class="navbar">
                 <ul>
                     <li>
-                        <h3>PhotoJournal</h3>
+                        <h3><a href="/">PhotoJournal</a></h3>
                     </li>
                     <li>
                         {% if user.profile.userPhoto %}
@@ -79,6 +79,7 @@
                         {{form.as_p}}
                         <input type="submit" value="login" class="login">
                     </form>
+                    <a href="{% url 'social:begin' 'github' %}" >github</a>
                     <a href="{% url 'register' %}" class="reg">register</a>
                 </div>
             </nav>

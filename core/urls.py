@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('photojournal.urls')),
     path('api/', include('pjapi.urls')),
+    path('oauth/', include('social_django.urls'), name='social'),
 ]

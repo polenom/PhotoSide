@@ -34,6 +34,13 @@
                         {{form.as_p}}
                         <input type="submit" value="Apply change">
                     </form>
+                    <p>SUB: </p>
+                    <p>
+                    {% for sub in subers %}
+                    <a href="{% url 'blogs' sub.username %}">{{sub.username}}
+                    </a>
+                    {% endfor %}
+                    </p>
                 </div>
             </footer>
 </body>

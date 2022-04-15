@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'social_django',
     'rest_framework_simplejwt',
     'photojournal',
     'rest_framework',
@@ -67,10 +68,27 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '8090250'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'NFrTe1mITHJhukFIflkl'
+
+SOCIAL_AUTH_GITHUB_KEY = '6055d5d8ecc57f25c7e4'
+SOCIAL_AUTH_GITHUB_SECRET = 'b635d35e614a9de7b641a6a139e51f5d72426e82'
+
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.vk.VKOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+
+)
 
 
 
@@ -180,3 +198,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
