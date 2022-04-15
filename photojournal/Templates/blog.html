@@ -60,8 +60,9 @@
                  <footer>
             <div class="foo">
                 <div class="col1">
-
-                    <img src="{{blog.photo.url}}" alt="" width="500" height="500">
+                    <a href="{% url 'changeBlog' blog.slug %}">
+                        <img src="{{blog.photo.url}}" alt="" width="500" height="500">
+                    </a>
                     <a href="{% url 'blogs' username %}">{{username}}</a>
                     <p>Title: {{blog.title}}</p>
                     <p>description : {{blog.description}}</p>

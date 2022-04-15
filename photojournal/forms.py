@@ -25,6 +25,11 @@ class AddPhotoForm(forms.ModelForm):
         model = Blog
         fields = ('photo','description','title','photoPublish')
 
+class ChangePhotoForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = ('photo', 'description', 'title', 'photoPublish')
+
 
 
 class ProfileForm(forms.ModelForm):

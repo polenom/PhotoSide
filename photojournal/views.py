@@ -5,7 +5,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 from django.contrib import messages
-from .forms import UserRegisterForm, UserAuthForm, AddPhotoForm, ProfileForm, CommentsForm
+from .forms import UserRegisterForm, UserAuthForm, AddPhotoForm, ProfileForm, CommentsForm, ChangePhotoForm
 from .models import *
 from django.db.models import Q, Count
 
@@ -190,3 +190,19 @@ def removeBlog(request, slug):
     if request.user.is_authenticated and blog.user == request.user:
         blog.delete()
     return redirect('/')
+
+
+def changeBlog(request, slug):
+    try:
+        blog = Blog.objects.get(slug=slug)
+    except Blog.DoesNotExist:
+        return HttpResponse('404')
+    if request.user.is_authenticated and blog.user == request.user:
+        form = ChangePhotoForm(instance=blog)
+        if request.method == 'POST':
+            form = ChangePhotoForm(request.POST, request.FILES, instance=blog)
+            if form.is_valid():
+                form.save()
+                return redirect(f'/blog/{slug}')
+        return render(request, 'changeBlog.html', {'form': form, 'blog': blog})
+    return HttpResponse('No change blog')
