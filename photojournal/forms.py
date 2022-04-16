@@ -6,26 +6,30 @@ from photojournal.models import *
 
 
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': '123'}))
+    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class': '123'}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class':'123'}))
-    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput())
-    password2 = forms.CharField(label='Подтвердить пароль', widget=forms.PasswordInput())
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput())
+    password2 = forms.CharField(label='Confim password', widget=forms.PasswordInput())
 
     class Meta:
         model = User
         fields = ('username','email','password1', 'password2')
 
 class UserAuthForm(AuthenticationForm):
-    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': '123'}))
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput())
+    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class': '123'}))
+    password = forms.CharField(label='password', widget=forms.PasswordInput())
 
 
 class AddPhotoForm(forms.ModelForm):
+    description = forms.CharField(label='Description')
+    photo = forms.ImageField(label='Photo')
     class Meta:
         model = Blog
         fields = ('photo','description','title','photoPublish')
 
 class ChangePhotoForm(forms.ModelForm):
+    description = forms.CharField(label='Description')
+    photo = forms.ImageField(label='Photo')
     class Meta:
         model = Blog
         fields = ('photo', 'description', 'title', 'photoPublish')
@@ -33,7 +37,11 @@ class ChangePhotoForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-    dateBirthday = forms.DateField(label='День рождения', widget=forms.DateInput(attrs={'type':'date'}))
+    dateBirthday = forms.DateField(label='Birthday', widget=forms.DateInput(attrs={'type':'date'}))
+    firstName = forms.CharField(label='First name',required=False)
+    secondName = forms.CharField(label='Second name', required=False)
+    emailProfile = forms.EmailField(label='Email')
+    userPhoto = forms.ImageField(label='Photo user' )
 
     class Meta:
         model = Profile
@@ -41,6 +49,7 @@ class ProfileForm(forms.ModelForm):
 
 
 class CommentsForm(forms.ModelForm):
+    text = forms.CharField(label='Comment')
 
     class Meta:
         model = Comments
