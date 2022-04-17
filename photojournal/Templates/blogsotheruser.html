@@ -1,4 +1,4 @@
-{% load static  %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,14 +30,14 @@
                     </li>
                     <li>
                         <p>
-                            <a href="/"> Blogs </a>
+                            <a href="/"> {% trans 'blogs' %} </a>
                         </p>
 
                     </li>
 
                     <li>
                         <p>
-                            <a href="{% url 'logout' %}">logout</a>
+                            <a href="{% url 'logout' %}">{% trans 'Logout' %}</a>
                         </p>
                     </li>
                 </ul>
@@ -50,9 +50,9 @@
                     {% csrf_token %}
                     <button type="submit">
                         {% if sub %}
-                            UNSUB
+                            {% trans 'UNSUB' %}
                         {% else %}
-                            SUB
+                            {% trans 'SUB' %}
                         {% endif %}
                     </button>
                  </form>

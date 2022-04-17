@@ -208,3 +208,6 @@ def changeBlog(request, slug):
                 return redirect(f'/blog/{slug}')
         return render(request, 'changeBlog.html', {'form': form, 'blog': blog})
     return HttpResponse('No change blog')
+
+def test(request):
+    return  render(request, 'test.html', {})

@@ -1,4 +1,4 @@
-{% load static  %}
+{% load static i18n  %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +30,7 @@
                     <form action="{% url 'login' %}" method="post">
                         {% csrf_token %}
                         {{form.as_p}}
-                        <input type="submit" value="login">
+                        <input type="submit" value="{% trans 'log in' %}">
                     </form>
                      <a href="{% url 'register' %}" class="reg">register</a>
                 </div>

@@ -1,4 +1,5 @@
-{% load static  %}
+
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +11,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/style/style.css">
+    <link rel="stylesheet" href="/static/style/style.css">
 
 </head>
 <body>
         {% if user.is_authenticated %}
+        {% get_current_language as LANGUAGE_CODE %}
         <nav>
             <div class="navbar">
                 <ul>
@@ -23,7 +25,7 @@
                     </li>
                     <li>
                         {% if user.profile.userPhoto %}
-                            <img src="{{user.profile.userPhoto}}" alt="" width="50" height="50">
+                            <img src="/{{user.profile.userPhoto}}" alt="" width="50" height="50">
                         {% else %}
                             <img src="https://scontent.frix7-1.fna.fbcdn.net/v/t31.18172-8/965425_128973217302546_416782933_o.png?_nc_cat=106&ccb=1-5&_nc_sid=e3f864&_nc_ohc=ByzXP3RoKj4AX_6kAZC&_nc_ht=scontent.frix7-1.fna&oh=00_AT9G3B-5Kdb75QCYbYahcjwpdvda9Y3AoIXBHCgnNn7yTA&oe=6269A10A" alt="" width="50" height="50">
                         {% endif %}
@@ -31,28 +33,40 @@
                     </li>
                     <li>
                         <p>
-                            <a href="{% url 'blogs' user.get_username  %}"> Home </a>
+                            <a href="{% url 'blogs' user.get_username  %}"> {% trans 'Home' %} </a>
                         </p>
 
                     </li>
                     <li>
                         <p>
-                            <a href="{% url 'add'%}"> add photo</a>
+                            <a href="{% url 'add'%}"> {% trans 'Add photo' %}</a>
                         </p>
 
                     </li>
                     <li>
                         <p>
-                            <a href="{% url 'profile' us.slug %}">profile</a>
+                            <a href="{% url 'profile' us.slug %}">{% trans 'Profile' %}</a>
                         </p>
 
                     </li>
                     <li>
                         <p>
-                            <a href="{% url 'logout' %}">logout</a>
+                            <a href="{% url 'logout' %}">{% trans 'Logout' %}</a>
                         </p>
+                    </li>
+                    <li>
+
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <a href="/{{language.code}}/" {% if LANGUAGE_CODE == language.code %} style="color:blue;" {% endif %}>{{language.code}}</a>
+                        {% endfor %}
+
                     </li>
                 </ul>
+
+
             </div>
         </nav>
 
@@ -77,10 +91,18 @@
                     <form action="{% url 'login' %}" method="post">
                         {% csrf_token %}
                         {{form.as_p}}
-                        <input type="submit" value="login" class="login">
+                        <input type="submit" value="{% trans 'log in' %}" class="login">
                     </form>
+                     {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <a href="/{{language.code}}/" {% if LANGUAGE_CODE == language.code %} style="color:blue;" {% endif %}>{{language.code}}</a>
+                        {% endfor %}
                     <a href="{% url 'social:begin' 'github' %}" >github</a>
-                    <a href="{% url 'register' %}" class="reg">register</a>
+                    <a href="{% url 'register' %}" class="reg">{% trans 'registration' %}</a>
+
+
                 </div>
             </nav>
             <footer>

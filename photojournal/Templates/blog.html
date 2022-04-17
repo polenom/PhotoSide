@@ -1,4 +1,4 @@
-{% load static  %}
+{% load i18n static  %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,9 +64,9 @@
                         <img src="{{blog.photo.url}}" alt="" width="500" height="500">
                     </a>
                     <a href="{% url 'blogs' username %}">{{username}}</a>
-                    <p>Title: {{blog.title}}</p>
-                    <p>description : {{blog.description}}</p>
-                    <p>likes: {{blog.likesBlog.count}} </p>
+                    <p>{% trans 'Title'%}: {{blog.title}}</p>
+                    <p>{% trans 'Description'%}: {{blog.description}}</p>
+                    <p>{% trans 'likes' %}: {{blog.likesBlog.count}} </p>
                     {% if not delete%}
                         <a href="{% url 'like' blog.slug %}">
                             add like
@@ -75,7 +75,7 @@
                     {% if delete%}
                         <button type="submit">
                             <a href="{% url 'remove' blog.slug %}">
-                            remove blog
+                            {% trans 'remove blog'%}
                             </a>
                         </button>
                     {% endif %}
@@ -90,7 +90,7 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         {{form.as_p}}
-                        <button type="submit"> add comment</button>
+                        <button type="submit"> {% trans 'add comment'%}</button>
                     </form>
 
 

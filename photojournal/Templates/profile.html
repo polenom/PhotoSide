@@ -1,4 +1,4 @@
-{% load static  %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,9 +32,9 @@
                         {% csrf_token%}
 
                         {{form.as_p}}
-                        <input type="submit" value="Apply change">
+                        <input type="submit" value="{% trans 'Apply change' %}">
                     </form>
-                    <p>SUB: </p>
+                    <p>{% trans 'SUB' %}: </p>
                     <p>
                     {% for sub in subers %}
                     <a href="{% url 'blogs' sub.username %}">{{sub.username}}

@@ -1,0 +1,189 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-17 20:06+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: core/settings.py:153
+msgid "Russia"
+msgstr "Русский"
+
+#: core/settings.py:154
+msgid "English"
+msgstr "Английский"
+
+#: photojournal/Templates/add.html:35
+#: photojournal/Templates/blogsotheruser.html:33
+#: photojournal/Templates/myblogs.html:34
+msgid "blogs"
+msgstr "Блоги"
+
+#: photojournal/Templates/add.html:41 photojournal/Templates/base.html:54
+#: photojournal/Templates/blogsotheruser.html:40
+#: photojournal/Templates/myblogs.html:52
+msgid "Logout"
+msgstr "Выйти"
+
+#: photojournal/Templates/add.html:54
+msgid "add"
+msgstr "Добавить"
+
+#: photojournal/Templates/base.html:36
+msgid "Home"
+msgstr "Домашняя страница"
+
+#: photojournal/Templates/base.html:42 photojournal/Templates/myblogs.html:40
+msgid "Add photo"
+msgstr "Добавить фото"
+
+#: photojournal/Templates/base.html:48 photojournal/Templates/myblogs.html:46
+msgid "Profile"
+msgstr "Профиль"
+
+#: photojournal/Templates/base.html:94 photojournal/Templates/login.html:33
+msgid "log in"
+msgstr "Войти"
+
+#: photojournal/Templates/base.html:103
+msgid "registration"
+msgstr "регистрация"
+
+#: photojournal/Templates/blog.html:67 photojournal/models.py:41
+msgid "Title"
+msgstr "Заголовок"
+
+#: photojournal/Templates/blog.html:68
+#, fuzzy
+#| msgid "c"
+msgid "description"
+msgstr "Описание"
+
+#: photojournal/Templates/blog.html:69
+msgid "likes"
+msgstr "Лайки"
+
+#: photojournal/Templates/blog.html:78
+msgid "remove blog"
+msgstr "удалить блог"
+
+#: photojournal/Templates/blog.html:93
+msgid "add comment"
+msgstr "Добавить коментарий"
+
+#: photojournal/Templates/blogsotheruser.html:53
+msgid "UNSUB"
+msgstr "Отписаться"
+
+#: photojournal/Templates/blogsotheruser.html:55
+#: photojournal/Templates/myblogs.html:30
+#: photojournal/Templates/profile.html:37
+msgid "SUB"
+msgstr "Подписаться "
+
+#: photojournal/Templates/profile.html:35
+msgid "Apply change"
+msgstr "Применить изменения"
+
+#: photojournal/forms.py:10 photojournal/forms.py:20
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: photojournal/forms.py:11 photojournal/forms.py:44
+msgid "Email"
+msgstr "Электронная почта"
+
+#: photojournal/forms.py:12 photojournal/forms.py:21
+msgid "Password"
+msgstr "Пароль"
+
+#: photojournal/forms.py:13
+msgid "Confim password"
+msgstr "Подтвердить пароль"
+
+#: photojournal/forms.py:25 photojournal/forms.py:32 photojournal/models.py:37
+msgid "Description"
+msgstr "Описание"
+
+#: photojournal/forms.py:26 photojournal/forms.py:45
+msgid "Photo user"
+msgstr "Фото"
+
+#: photojournal/forms.py:33 photojournal/models.py:36
+#, fuzzy
+#| msgid "Photo user"
+msgid "Photo"
+msgstr "Фото"
+
+#: photojournal/forms.py:41
+msgid "Birthday"
+msgstr "День рождения"
+
+#: photojournal/forms.py:42
+msgid "First name"
+msgstr "Имя"
+
+#: photojournal/forms.py:43
+msgid "Second name"
+msgstr "Фамилия"
+
+#: photojournal/models.py:38
+#, fuzzy
+#| msgid "date create"
+msgid "Date create"
+msgstr "Дата создания"
+
+#: photojournal/models.py:39
+msgid "Status"
+msgstr "Статус"
+
+#: photojournal/models.py:53
+msgid "text"
+msgstr "Текст"
+
+#: photojournal/models.py:54
+msgid "date create"
+msgstr "Дата создания"
+
+#, fuzzy
+#~| msgid "Logout"
+#~ msgid "logout"
+#~ msgstr "Выйти"
+
+#, fuzzy
+#~| msgid "blogs"
+#~ msgid "Blogs"
+#~ msgstr "Блоги"
+
+#, fuzzy
+#~| msgid "registration"
+#~ msgid "registration error"
+#~ msgstr "ошибка регистрации"
+
+#~ msgid "Sign up"
+#~ msgstr "Зарегистрироваться"
+
+#, fuzzy
+#~| msgid "registration"
+#~ msgid "Register"
+#~ msgstr "регистрация"
+
+#, fuzzy
+#~| msgid "registration"
+#~ msgid "Regist"
+#~ msgstr "регистрация"

@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 def user_path(instance, filename):
     date = datetime.now()
@@ -32,12 +33,12 @@ class Profile(models.Model):
 
 class Blog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Имя пользователя',related_name='blogs')
-    photo = models.ImageField(upload_to=photo_path, verbose_name='Фото')
-    description = models.TextField(max_length=100, verbose_name='Описание')
-    creation = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
-    photoPublish = models.BooleanField(default=True, verbose_name='Статус')
+    photo = models.ImageField(upload_to=photo_path, verbose_name=_('Photo'))
+    description = models.TextField(max_length=100, verbose_name=_('Description'))
+    creation = models.DateTimeField(auto_now=True, verbose_name=_('Date create'))
+    photoPublish = models.BooleanField(default=True, verbose_name=_('Status'))
     likesBlog = models.ManyToManyField(User,blank=True, related_name='likes')
-    title = models.CharField(max_length=40, unique=True)
+    title = models.CharField(max_length=40, unique=True,verbose_name=_('Title'))
     slug = models.SlugField(null=True)
 
     def  __str__(self):
@@ -49,8 +50,8 @@ class Blog(models.Model):
 class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Имя пользователя')
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name='Фото', related_name='coms')
-    text = models.TextField(max_length=100, verbose_name='Коментарий')
-    creation = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
+    text = models.TextField(max_length=100, verbose_name=_('text'))
+    creation = models.DateTimeField(auto_now=True, verbose_name=_('date create'))
 
 
 

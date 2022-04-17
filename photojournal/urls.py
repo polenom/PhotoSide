@@ -15,7 +15,8 @@ urlpatterns = [
     path('blogs/<slug:slug>', viewBlogs, name='blogs'),
     path('sub/<int:pk>', subUser, name='subuser'),
     path('like/<slug:slug>', likeBlog, name='like'),
-    path('blog/change/<slug:slug>', changeBlog, name='changeBlog')
+    path('blog/change/<slug:slug>', changeBlog, name='changeBlog'),
+    path('test', test, name='test'),
 ]
 
 

@@ -1,4 +1,4 @@
-{% load static  %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,14 +28,15 @@
                     {% if messages %}
                         {% for message in messages  %}
                             {% if message.tags == 'error' %}
-                                <p>Ошибка регистрации</p>
+                                <p> registration error</p>
                             {% endif %}
                         {% endfor %}
                     {% endif %}
                     <form action="{% url 'register' %}" method="post">
                         {% csrf_token %}
                         {{ userReg.as_p }}
-                        <input type="submit" value="Register">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        <input type="submit" value="{% if LANGUAGE_CODE == 'ru' %} Зарегистроваться  {% else %} Sing up {% endif %}">
                     </form>
                 </div>
             </footer>

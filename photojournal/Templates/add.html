@@ -1,4 +1,4 @@
-{% load static  %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,13 +30,15 @@
                     </li>
                     <li>
                         <p>
-                            <a href="/"> Blogs </a>
+                            {% get_current_language as LANGUAGE_CODE %}
+
+                            <a href="/{{ LANGUAGE_CODE }}/"> {% trans 'blogs' %} </a>
                         </p>
 
                     </li>
                     <li>
                         <p>
-                            <a href="{% url 'logout' %}">logout</a>
+                            <a href="{% url 'logout' %}">{% trans 'Logout' %}</a>
                         </p>
                     </li>
                 </ul>
@@ -49,7 +51,7 @@
                     {% csrf_token%}
                     {{form.media}}
                     {{form.as_p}}
-                    <input type="submit" value="add">
+                    <input type="submit" value="{% trans 'add' %}">
                 </form>
             </div>
         </footer>
