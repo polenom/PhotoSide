@@ -34,6 +34,7 @@ def register(request):
         userReg = UserRegisterForm(request.POST)
         if userReg.is_valid():
             userReg.save()
+            print('USERRRRRRRRRRRRRRR')
             user= User.objects.get(username = request.POST['username'])
             Profile(userProfile=user, emailProfile= request.POST['email'], slug = request.POST['username']).save()
             login(request, user)

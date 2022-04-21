@@ -1,0 +1,28 @@
+docker run
+1) В ./core/setting.py изменить
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_db',
+        'USER' : 'django',
+        'PASSWORD' : '1234',
+        'HOST' : '127.0.0.1',
+        'PORT' : '5432',
+    }
+}
+
+на
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_db',
+        'USER' : 'django',
+        'PASSWORD' : '1234',
+        'HOST' : 'database',
+        'PORT' : '5432',
+    }
+}
+2) В терминале прописать в коталоге прокета прописать docker build -t pjjj . Должен скачать создаться образ
+3) После этого запустить команду docker-compose up. Готово

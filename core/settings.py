@@ -10,24 +10,25 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+
 from pathlib import Path
 from  django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
+from decouple import config
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8+xf7nf=*$1evy9k8$zz#)n+17!jgrye98zjd@j83hb!bz3d%s'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SECRET_KEY = config('SECRET_KEY')
 
 # Application definition
 
@@ -82,21 +83,21 @@ TEMPLATES = [
     },
 ]
 
-SOCIAL_AUTH_VK_OAUTH2_KEY = '8090250'
-SOCIAL_AUTH_VK_OAUTH2_SECRET = 'NFrTe1mITHJhukFIflkl'
+SOCIAL_AUTH_VK_OAUTH2_KEY = config('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = config('SOCIAL_AUTH_VK_OAUTH2_SECRET')
 
-SOCIAL_AUTH_GITHUB_KEY = '6055d5d8ecc57f25c7e4'
-SOCIAL_AUTH_GITHUB_SECRET = 'b635d35e614a9de7b641a6a139e51f5d72426e82'
+SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET')
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'social_core.backends.vk.VKOAuth2',
-    'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.vk.VKOAuth2',
+    # 'social_core.backends.github.GithubOAuth2',
 
 )
-
+SITE_ID = 1
 
 
 WSGI_APPLICATION = 'core.wsgi.application'
@@ -220,4 +221,4 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-SOCIAL_AUTH_JSONFIELD_ENABLED = True
+# SOCIAL_AUTH_JSONFIELD_ENABLED = True
